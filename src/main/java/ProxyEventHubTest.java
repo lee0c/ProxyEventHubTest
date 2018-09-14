@@ -1,5 +1,5 @@
 import com.microsoft.azure.eventhubs.*;
-import com.microsoft.azure.eventhubs.impl.EventHubClientImpl;
+import com.microsoft.azure.eventhubs.EventHubClient;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -14,10 +14,12 @@ public class ProxyEventHubTest
     private static String CONNECTION_STRING = System.getenv(EVENT_HUB_CONNECTION_STRING_NAME);
 
     public static void main (String[] args) throws EventHubException, IOException {
-        EventHubClientImpl.PROXY_HOST_NAME = System.getenv(PROXY_HOSTNAME_NAME);
-        EventHubClientImpl.PROXY_HOST_PORT = Integer.parseInt(System.getenv(PROXY_PORT_NAME));
+        EventHubClient.setProxyHostName(System.getenv(PROXY_HOSTNAME_NAME));
+        EventHubClient.setProxyHostPort(Integer.parseInt(System.getenv(PROXY_PORT_NAME)));
 
         final ConnectionStringBuilder connStr = new ConnectionStringBuilder(CONNECTION_STRING);
+        connStr.setTransportType(TransportType.AMQP_WEB_SOCKETS);
+
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         final EventHubClient ehClient = EventHubClient.createSync(connStr.toString(), executorService);
