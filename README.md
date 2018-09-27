@@ -3,8 +3,8 @@
 This will send 10 test messages to a specified Event Hub instance through a proxy.
 After sending each message it will wait for user input on the keyboard.
 
-This sample uses the temporary [proxy support preview for Event 
-Hubs](https://github.com/Azure/azure-event-hubs-java/issues/264#issuecomment-420508548).
+This sample uses 
+[proxy support for Azure Event Hubs](https://github.com/Azure/azure-event-hubs-java/commit/a85a662d233408e683cbc641dd9100bbacbaf04d)
 
 ## Running the sample  
 
